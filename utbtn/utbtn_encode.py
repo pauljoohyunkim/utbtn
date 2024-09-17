@@ -21,8 +21,10 @@ def bytes_to_images(data : Union[bytes, str]) -> UTBTN_Images:
   
   conf = {"SIZE":images.size,
           "SQUARE_WIDTH":images.square_width,
-          "H_MARGIN":images.h_margin,
-          "V_MARGIN":images.v_margin}
+          "L_MARGIN":images.l_margin,
+          "R_MARGIN":images.r_margin,
+          "T_MARGIN":images.t_margin,
+          "B_MARGIN":images.b_margin}
   print("Encoding completed.")
   print("Configuration:")
   print(conf)

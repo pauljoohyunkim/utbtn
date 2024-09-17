@@ -39,6 +39,11 @@ def process_images_to_utbtn_images(raw_images : list, n_bytes, size=A4_SIZE, squ
 
     return images
 
-def detect_box(image : np.ndarray, threshold=150):
-    thresholded_image = np.vectorize(lambda x : 255 if x < threshold else 0)(image).astype(np.uint8)
+# Due to compression, it is unlikely that a whole row or column is zero for usual files.
+def detect_box(image : np.ndarray, pixel_threshold=150):
+    n_row, n_col = image.shape
+    thresholded_image = np.vectorize(lambda x : 1 if x < pixel_threshold else 0)(image).astype(np.uint8)
+
+    # Detect left edge
+
 

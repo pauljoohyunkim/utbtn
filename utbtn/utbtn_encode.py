@@ -14,7 +14,7 @@ def bytes_to_images(data : Union[bytes, str]) -> UTBTN_Images:
       data_read = f.read(2 ** 16)
       while data_read:
         images.encode_bytes(comp.compress(data_read))
-        data_read = data.read(2**16)
+        data_read = f.read(2**16)
       images.encode_bytes(comp.flush())
   else:
     raise TypeError('data must be bytes or filename')

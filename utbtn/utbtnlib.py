@@ -76,11 +76,14 @@ class UTBTN_Images:
         self.bitindex = 0
 
     # decode_mode() method MUST be called before usage for the first time!
-    # Including self.n_bits, self.n_pages
+    # Leaving n_bytes=0 will decode the entire information
     def decode_bytes(self, n_bytes=0, threshold=150) -> bytes:
         if n_bytes == 0:
             n_bytes = self.n_bits // 8
         n_bits_to_read = n_bytes * 8
+        n_bits_to_read = min(n_bits_to_read, self.n_bits - self.bitindex)
+        if n_bits_to_read == 0:
+            return ''
 
         bitstring = ''
         for i in range(n_bits_to_read):

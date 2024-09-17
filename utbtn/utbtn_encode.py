@@ -17,4 +17,15 @@ def bytes_to_image(data : (bytes, str)) -> UTBTN_Images:
       images.encode_bytes(comp.flush())
   else:
     raise TypeError('data must be bytes or filename')
+  
+  conf = {"A4_SIZE":images.size,
+          "SQUARE_WIDTH":images.square_width,
+          "H_MARGIN":images.h_margin,
+          "V_MARGIN":images.v_margin}
+  print("Encoding completed.")
+  print("Configuration:")
+  print(conf)
+  print(f"Total bytes output: {images.byteindex}")
+  print(f"Total pages output: {images.pageindex+1}")
+  
   return images

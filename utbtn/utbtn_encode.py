@@ -1,8 +1,9 @@
+from typing import Union
 from utbtnlib import UTBTN_Images
 import bz2
 
 # data can be bytes or filename
-def bytes_to_image(data : (bytes, str)) -> UTBTN_Images:
+def bytes_to_image(data : Union[bytes, str]) -> UTBTN_Images:
   images = UTBTN_Images()
 
   if type(data) == bytes:

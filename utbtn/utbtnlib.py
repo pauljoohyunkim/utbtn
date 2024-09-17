@@ -64,3 +64,7 @@ class UTBTN_Images:
             self.images[self.pageindex][rowstart:rowend, colstart:colend] = 255 if bit == '0' else 0
 
             self.byteindex += 1
+    
+    def decode_bytes(self) -> bytes:
+        n_bits = self.byteindex * 8
+

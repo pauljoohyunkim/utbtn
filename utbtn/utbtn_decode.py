@@ -22,9 +22,9 @@ def images_to_bytes(images : UTBTN_Images, output=Union[None, str]) -> Union[byt
                 data_read = images.decode_bytes(2**16)
 
 # Given a list of PIL images
-def process_images_to_utbtn_images(raw_images : list, n_bits, size=A4_SIZE, square_width=SQUARE_WIDTH, h_margin=H_MARGIN, v_margin=V_MARGIN) -> UTBTN_Images:
+def process_images_to_utbtn_images(raw_images : list, n_bytes, size=A4_SIZE, square_width=SQUARE_WIDTH, h_margin=H_MARGIN, v_margin=V_MARGIN) -> UTBTN_Images:
     images = UTBTN_Images()
-    images.n_bits = n_bits
+    images.n_bits = n_bytes * 8
     images.size = size
     images.square_width=square_width
     images.h_margin=h_margin

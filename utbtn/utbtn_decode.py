@@ -69,8 +69,20 @@ def detect_box(image : np.ndarray, pixel_threshold=150, ignore_first=10):
     top_kernel[0,:] = -1
     top_kernel[2,:] = 1
     top_convolutions = [0] + [weighted_sum(top_kernel, thresholded_image[i-1:i+2,:]) for i in range(1, n_row-1)] + [0]
+    for i in range(n_row):
+        if i < ignore_first:
+            continue
+        if top_convolutions[i] != 0:
+            break
+    t_margin = i+1
+    for j in range(n_row):
+        if j < ignore_first:
+            continue
+        if top_convolutions[n_row-j-1] != 0:
+            break
+    b_margin = j+1
 
-    return (l_margin, r_margin)
+    return (l_margin, r_margin, t_margin, b_margin)
 
 def weighted_sum(kernel : np.ndarray, mat : np.ndarray):
     return np.dot(kernel.flatten(), mat.flatten())

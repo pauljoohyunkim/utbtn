@@ -77,7 +77,7 @@ class UTBTN_Images:
 
     # decode_mode() method MUST be called before usage for the first time!
     # Including self.n_bits, self.n_pages
-    def decode_bytes(self, n_bytes : int) -> bytes:
+    def decode_bytes(self, n_bytes : int, threshold=150) -> bytes:
         n_bits_to_read = n_bytes * 8
 
         bitstring = ''
@@ -94,7 +94,7 @@ class UTBTN_Images:
             # Get the value of the middle of the square
             pixel_value = self.images[self.pageindex][int((rowstart + rowend) / 2), int((colstart + colend) / 2)]
             # Thresholding
-            bit = '0' if pixel_value > 150 else '1'
+            bit = '0' if pixel_value > threshold else '1'
             bitstring += bit
             self.bitindex += 1
 

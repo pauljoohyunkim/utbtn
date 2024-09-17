@@ -25,4 +25,4 @@ Homepage = "https://github.com/pauljoohyunkim/utbtn"
 Issues = "https://github.com/pauljoohyunkim/utbtn/issues"
 
 [project.scripts]
-utbtn = "utbtn.utbtn:main"
+utbtn = "utbtn:main"

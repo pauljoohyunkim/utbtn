@@ -11,3 +11,5 @@ which was a time-consuming job, and would be unrealistic for any other file than
 
 With this project, I came up with a way to "generalize" the idea of this task to a general file.
 
+Note that the first version of this app is meant not to use any clever external OCR software
+so that one could deploy this solution in a place without internet.

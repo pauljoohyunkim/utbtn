@@ -1,4 +1,4 @@
-from utbtn import UTBTN_Images
+from utbtnlib import UTBTN_Images
 import bz2
 
 # data can be bytes or filename

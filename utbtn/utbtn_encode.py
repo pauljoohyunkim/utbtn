@@ -26,7 +26,7 @@ def bytes_to_images(data : Union[bytes, str]) -> UTBTN_Images:
   print("Encoding completed.")
   print("Configuration:")
   print(conf)
-  print(f"Total bytes output: {images.byteindex}")
-  print(f"Total pages output: {images.pageindex+1}")
+  print(f"Total bits output: {images.n_bits}")
+  print(f"Total pages output: {images.n_pages}")
   
   return images

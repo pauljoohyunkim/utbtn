@@ -13,3 +13,19 @@ With this project, I came up with a way to "generalize" the idea of this task to
 
 Note that the first version of this app is meant not to use any clever external OCR software
 so that one could deploy this solution in a place without internet.
+
+## Installation
+```
+pip install .
+```
+
+## Usage
+For encoding a file called "file.txt" to printable A4 images.
+```
+utbtn encode file.txt
+```
+
+For reconstructing file.txt from printable A4 images.
+```
+utbtn decode file.txt file_0.png file_1.png file_2.png
+```

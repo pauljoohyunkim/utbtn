@@ -19,7 +19,7 @@ def bytes_to_images(data : Union[bytes, str]) -> UTBTN_Images:
   else:
     raise TypeError('data must be bytes or filename')
   
-  conf = {"A4_SIZE":images.size,
+  conf = {"SIZE":images.size,
           "SQUARE_WIDTH":images.square_width,
           "H_MARGIN":images.h_margin,
           "V_MARGIN":images.v_margin}

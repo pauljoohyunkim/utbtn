@@ -23,15 +23,24 @@ def images_to_bytes(images : UTBTN_Images, output=Union[None, str]) -> Union[byt
                 data_read = images.decode_bytes(2**16)
 
 # Given a list of PIL images
-def process_images_to_utbtn_images(raw_images : list, n_bytes, size=A4_SIZE, square_width=SQUARE_WIDTH, l_margin=L_MARGIN, r_margin=R_MARGIN, t_margin=T_MARGIN, b_margin=B_MARGIN) -> UTBTN_Images:
+def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_space_v, size=A4_SIZE, square_width=SQUARE_WIDTH, l_margin=L_MARGIN, t_margin=T_MARGIN) -> UTBTN_Images:
     images = UTBTN_Images()
     images.n_bits = n_bytes * 8
     images.size = size
     images.square_width=square_width
-    images.l_margin=l_margin
-    images.r_margin=r_margin
-    images.t_margin=t_margin
-    images.b_margin=b_margin
+    images.n_space_h = n_space_h
+    images.n_space_v = n_space_v
+    images.n_square_per_page = n_space_h * n_space_v
+
+    # Detect box
+    # First image
+    first_raw_image = np.array(raw_images[0].resize((images.size[1], images.size[0])), dtype=np.uint8)
+    images.l_margin, images.r_margin, images.t_margin, images.b_margin = detect_box(first_raw_image)
+
+    #images.l_margin=l_margin
+    #images.r_margin=r_margin
+    #images.t_margin=t_margin
+    #images.b_margin=b_margin
     images.n_pages = len(raw_images)
 
     for raw_image in raw_images:
@@ -41,7 +50,7 @@ def process_images_to_utbtn_images(raw_images : list, n_bytes, size=A4_SIZE, squ
     return images
 
 # Due to compression, it is unlikely that a whole row or column is zero for usual files.
-def detect_box(image : np.ndarray, pixel_threshold=150, ignore_first=10):
+def detect_box(image : np.ndarray, pixel_threshold=150, ignore_first=40):
     n_row, n_col = image.shape
     # For computation, black = 1, white = 0
     thresholded_image = np.vectorize(lambda x : 1 if x < pixel_threshold else 0)(image).astype(np.float16)
@@ -86,5 +95,3 @@ def detect_box(image : np.ndarray, pixel_threshold=150, ignore_first=10):
 
 def weighted_sum(kernel : np.ndarray, mat : np.ndarray):
     return np.dot(kernel.flatten(), mat.flatten())
-    
-

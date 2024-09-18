@@ -42,8 +42,10 @@ def main():
 
         raw_images = [Image.open(filename) for filename in remainingargs[1:]]
         n_bytes = int(input("n_bytes: "))
+        n_space_h = int(input("n_space_h: "))
+        n_space_v = int(input("n_space_v: "))
         
-        images = process_images_to_utbtn_images(raw_images, n_bytes)
+        images = process_images_to_utbtn_images(raw_images, n_bytes, n_space_h, n_space_v)
         images_to_bytes(images, remainingargs[0])
 
         sys.exit(0)

@@ -33,7 +33,7 @@ def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_spac
     images.n_pages = len(raw_images)
     images.l_t_margins = []
 
-    use_default = False if input("Use default margins? [Default: N]").lower() in ['n', 'no'] else True
+    use_default = True if input("Use default margins? [Default: N] ").lower() in ['y', 'yes'] else False
     
     for i in range(len(raw_images)):
         raw_image = raw_images[i]

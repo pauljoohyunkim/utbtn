@@ -33,18 +33,26 @@ def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_spac
     images.n_pages = len(raw_images)
     images.l_t_margins = []
 
+    use_default = False if input("Use default margins? [Default: N]").lower() in ['n', 'no'] else True
+    
     for i in range(len(raw_images)):
         raw_image = raw_images[i]
-        if i == 0:
-            images.l_margin = int(input("Image 0 left margin (cm): ")) * 300 / 2.54
-            images.r_margin = int(input("Image 0 right margin (cm): ")) * 300 / 2.54
-            images.t_margin = int(input("Image 0 top margin (cm): ")) * 300 / 2.54
-            images.b_margin = int(input("Image 0 bottom margin (cm): ")) * 300 / 2.54
-            images.square_width_h = (size[1] - images.l_margin - images.r_margin) / n_space_h
-            images.square_width_v = (size[0] - images.t_margin - images.b_margin) / n_space_v
+        if use_default == False:
+            if i == 0:
+                images.l_margin = int(input("Image 0 left margin (cm): ")) * 300 / 2.54
+                images.r_margin = int(input("Image 0 right margin (cm): ")) * 300 / 2.54
+                images.t_margin = int(input("Image 0 top margin (cm): ")) * 300 / 2.54
+                images.b_margin = int(input("Image 0 bottom margin (cm): ")) * 300 / 2.54
+                images.square_width_h = (size[1] - images.l_margin - images.r_margin) / n_space_h
+                images.square_width_v = (size[0] - images.t_margin - images.b_margin) / n_space_v
+            else:
+                images.l_margin = int(input(f"Image {i} left margin (cm): ")) * 300 / 2.54
+                images.t_margin = int(input(f"Image {i} top margin (cm): ")) * 300 / 2.54
         else:
-            images.l_margin = int(input(f"Image {i} left margin (cm): ")) * 300 / 2.54
-            images.t_margin = int(input(f"Image {i} top margin (cm): ")) * 300 / 2.54
+            images.l_margin = L_MARGIN
+            images.r_margin = R_MARGIN
+            images.square_width_h = SQUARE_WIDTH
+            images.square_width_v = SQUARE_WIDTH
         images.l_t_margins.append((images.l_margin, images.t_margin))
 
         resized_image = np.array(raw_image.resize((images.size[1], images.size[0])), dtype=np.uint8)

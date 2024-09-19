@@ -23,27 +23,31 @@ def images_to_bytes(images : UTBTN_Images, output=Union[None, str]) -> Union[byt
                 data_read = images.decode_bytes(2**16)
 
 # Given a list of PIL images
-def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_space_v, size=A4_SIZE, square_width=SQUARE_WIDTH, l_margin=L_MARGIN, t_margin=T_MARGIN) -> UTBTN_Images:
+def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_space_v, size=A4_SIZE) -> UTBTN_Images:
     images = UTBTN_Images()
     images.n_bits = n_bytes * 8
     images.size = size
-    images.square_width=square_width
     images.n_space_h = n_space_h
     images.n_space_v = n_space_v
     images.n_square_per_page = n_space_h * n_space_v
 
-    # Detect box
-    # First image
-    first_raw_image = np.array(raw_images[0].resize((images.size[1], images.size[0])), dtype=np.uint8)
-    images.l_margin, images.r_margin, images.t_margin, images.b_margin = detect_box(first_raw_image)
-
-    #images.l_margin=l_margin
-    #images.r_margin=r_margin
-    #images.t_margin=t_margin
-    #images.b_margin=b_margin
     images.n_pages = len(raw_images)
+    images.l_t_margins = []
 
-    for raw_image in raw_images:
+    for i in range(len(raw_images)):
+        raw_image = raw_images[i]
+        if i == 0:
+            images.l_margin = int(input("Image 0 left margin (cm): ")) * 300 / 2.54
+            images.r_margin = int(input("Image 0 right margin (cm): ")) * 300 / 2.54
+            images.t_margin = int(input("Image 0 top margin (cm): ")) * 300 / 2.54
+            images.b_margin = int(input("Image 0 bottom margin (cm): ")) * 300 / 2.54
+            images.square_width_h = (size[1] - images.l_margin - images.r_margin) / n_space_h
+            images.square_width_v = (size[0] - images.t_margin - images.b_margin) / n_space_v
+        else:
+            images.l_margin = int(input("Image 0 left margin (cm): ")) * 300 / 2.54
+            images.t_margin = int(input("Image 0 top margin (cm): ")) * 300 / 2.54
+        images.l_t_margins.append((images.l_margin, images.t_margin))
+
         resized_image = np.array(raw_image.resize((images.size[1], images.size[0])), dtype=np.uint8)
         images.images.append(resized_image)
 

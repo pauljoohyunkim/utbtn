@@ -6,9 +6,9 @@ import numpy as np
 # A4 in pixel with 300dpi
 A4_SIZE = (3508, 2480)
 # Roughly
-SQUARE_WIDTH = 20
-L_MARGIN = int(2.1 * 2 * SQUARE_WIDTH)
-R_MARGIN = int(2.1 * 2 * SQUARE_WIDTH)
+SQUARE_WIDTH = 30
+L_MARGIN = int(2.8 * 2 * SQUARE_WIDTH)
+R_MARGIN = int(2.8 * 2 * SQUARE_WIDTH)
 T_MARGIN = int(2.97 * 2 * SQUARE_WIDTH)
 B_MARGIN = int(2.97 * 2 * SQUARE_WIDTH)
 
@@ -93,11 +93,12 @@ class UTBTN_Images:
         for i in range(n_bits_to_read):
             if self.bitindex % self.n_square_per_page == 0:
                 self.pageindex += 1
+                self.l_margin, self.r_margin = self.l_t_margins[self.pageindex]
             rownum = int((self.bitindex % self.n_square_per_page) / self.n_space_h)
             colnum = (self.bitindex % self.n_square_per_page) % self.n_space_h
-            rowstart = self.t_margin + rownum * self.square_width
+            rowstart = self.t_margin + rownum * self.square_width_v
             rowend = rowstart + self.square_width
-            colstart = self.l_margin + colnum * self.square_width
+            colstart = self.l_margin + colnum * self.square_width_h
             colend = colstart + self.square_width
 
             # Get the value of the middle of the square

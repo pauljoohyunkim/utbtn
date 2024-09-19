@@ -3,7 +3,6 @@ import numpy as np
 from utbtnlib import UTBTN_Images, A4_SIZE, SQUARE_WIDTH, L_MARGIN, R_MARGIN, T_MARGIN, B_MARGIN
 from typing import Union
 import bz2
-#import pdb
 
 # if output is a string, then it will be saved as a file
 # if kept as None, then it will return the bytes
@@ -44,8 +43,8 @@ def process_images_to_utbtn_images(raw_images : list, n_bytes, n_space_h, n_spac
             images.square_width_h = (size[1] - images.l_margin - images.r_margin) / n_space_h
             images.square_width_v = (size[0] - images.t_margin - images.b_margin) / n_space_v
         else:
-            images.l_margin = int(input("Image 0 left margin (cm): ")) * 300 / 2.54
-            images.t_margin = int(input("Image 0 top margin (cm): ")) * 300 / 2.54
+            images.l_margin = int(input(f"Image {i} left margin (cm): ")) * 300 / 2.54
+            images.t_margin = int(input(f"Image {i} top margin (cm): ")) * 300 / 2.54
         images.l_t_margins.append((images.l_margin, images.t_margin))
 
         resized_image = np.array(raw_image.resize((images.size[1], images.size[0])), dtype=np.uint8)
